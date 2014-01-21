@@ -30,13 +30,15 @@ class Log(dbus.service.Object):
         msg = codecs.decode(msg, 'base64').decode('utf-8')
         for item in msg.split("[[|]]"):
             icon = "konsole"
-            color = None
+            color = ""
             font_weight = None
             text_decoration = None
 
             if "[[t]]" in item:
+                self.layout.addItem(HelloPython.getLabel(item.replace("[[t]]", ""), "", font_weight, text_decoration))
                 continue
             elif "[[l]]" in item:
+                self.layout.addItem(HelloPython.getLabel(item.replace("[[l]]", ""), "", "bold", text_decoration))
                 continue
             else:
                 if "www" in item:
@@ -48,15 +50,18 @@ class Log(dbus.service.Object):
                     font_weight = "bold"
                     item = item.replace("[[v]]", "")
                 if "[[c]]" in item:
-                    color = "yellow"
+                    color = "lightgreen"
                     font_weight = "bold"
                     item = item.replace("[[c]]", "")
                 if "[[u]]" in item:
-                    color = "red"
+                    color = "yellow"
                     font_weight = "bold"
                     text_decoration = "underline"
                     item = item.replace("[[u]]", "")
                 self.layout.addItem(HelloPython.getToolButton(item, icon, color, font_weight, text_decoration))
+
+        for i in range(self.layout.count()):
+            self.layout.setAlignment(self.layout.itemAt(i), Qt.AlignVCenter)
 
  
 class HelloPython(plasmascript.Applet):
@@ -68,8 +73,9 @@ class HelloPython(plasmascript.Applet):
         x = Plasma.ToolButton()
         x.setIcon(KIcon(icon))
         x.setText(text)
+        x.setContentsMargins(0,0,0,0)
         x.nativeWidget().setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-        style_sheet = "QToolButton { color: %s; font-weight: %s; text-decoration: %s;}" % (color, font_weight, text_decoration)
+        style_sheet = "QToolButton { color: %s; font-weight: %s; text-decoration: %s; font-size: 11px; max-height: 18px; padding-top: 0; padding-bottom: 0; }" % (color, font_weight, text_decoration)
         x.nativeWidget().setStyleSheet(style_sheet)
         return x
 
@@ -77,9 +83,10 @@ class HelloPython(plasmascript.Applet):
     def getLabel(text, color = "#BECFD2", font_weight = "normal", text_decoration = "none"):
         x = Plasma.Label()
         x.setText(text)
+        x.setContentsMargins(0,0,0,0)
         x.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum);
         x.setWordWrap(False)
-        style_sheet = "QLabel { color: %s; font-weight: %s; text-decoration: %s; }" % (color, font_weight, text_decoration)
+        style_sheet = "QLabel { color: %s; font-weight: %s; text-decoration: %s; font-size: 11px; max-height: 20px; padding-left: 6px }" % (color, font_weight, text_decoration)
         x.nativeWidget().setStyleSheet(style_sheet)
         return x
 
@@ -92,10 +99,15 @@ class HelloPython(plasmascript.Applet):
         self.setAspectRatioMode(Plasma.IgnoreAspectRatio)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed))
         self.layout = QGraphicsLinearLayout(Qt.Horizontal)
+        self.layout.setContentsMargins(0,0,0,0)
+        self.setContentsMargins(0,0,0,0)
         self.applet.setLayout(self.layout)
-        self.setMinimumWidth(200)
-        #self.resize(200,44)
-        self.resize(200,30)
+
+        #self.setMinimumWidth(200)
+        self.setMinimumHeight(30)
+        
+        self.setMaximumHeight(100)
+        self.layout.setMaximumHeight(100)
 
         self.setup_dbus()
  

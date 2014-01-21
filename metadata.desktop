@@ -1,17 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Hello Python
+Name=XMonad-Log-Plasmoid
 Type=Service
 ServiceTypes=Plasma/Applet
 Icon=chronometer
 X-Plasma-API=python
 X-Plasma-MainScript=code/main.py
-X-KDE-PluginInfo-Author=Simon Edwards
-X-KDE-PluginInfo-Email=simon@simonzone.com
-X-KDE-PluginInfo-Name=hello-python
-X-KDE-PluginInfo-Version=1.0
-X-KDE-PluginInfo-Website=http://plasma.kde.org/
-X-KDE-PluginInfo-Category=Examples
-X-KDE-PluginInfo-Depends=
-X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-Author=Marius Rejdak
+X-KDE-PluginInfo-Email=mariuswol@gmail.com
+X-KDE-PluginInfo-Name=xmonad-log-plasmoid
+X-KDE-PluginInfo-Version=0.1
 X-KDE-PluginInfo-EnabledByDefault=true
