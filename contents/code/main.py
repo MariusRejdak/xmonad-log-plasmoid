@@ -35,10 +35,12 @@ class Log(dbus.service.Object):
         with self.mutex:
             msg = codecs.decode(msg, 'base64').decode('utf-8')
             counter = 0
+            title_changed = False
 
             for item in msg.split("[[|]]"):
                 if "[[t]]" in item:
                     self.title_label.setText(item.replace("[[t]]", ""))
+                    title_changed = True
                     continue
                 elif "[[l]]" in item:
                     self.layout_label.setText(item.replace("[[l]]", ""))
@@ -76,6 +78,9 @@ class Log(dbus.service.Object):
                         XMonadLogPlasmoid.setToolButtonStyle(self.desktops[counter], item, icon, color, font_weight, text_decoration)
 
                     counter += 1
+
+            if not title_changed:
+                self.title_label.setText("")
 
             while counter < len(self.desktops):
                 self.desktops[counter].setOwnedByLayout(True)
