@@ -54,8 +54,14 @@ class Log(dbus.service.Object):
 
                     if "www" in item:
                         icon = "chromium"
-                    if "im" in item:
+                    if "im1" in item:
                         icon = "pidgin"
+                    if "im2" in item:
+                        icon = "meeting-participant"
+                    if "subl" in item:
+                        icon = "sublime-text"
+                    if "fm" in item:
+                        icon = "user-home"
                     if "misc" in item:
                         icon = "konsole"
                     if "mail" in item:
@@ -70,6 +76,7 @@ class Log(dbus.service.Object):
                         font_weight = "bold"
                         item = item.replace("[[c]]", "")
                     if "[[u]]" in item:
+                        icon = "task-attention"
                         color = "#8B0000"
                         font_weight = "bold"
                         text_decoration = "underline"
