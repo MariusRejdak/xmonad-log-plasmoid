@@ -94,7 +94,6 @@ class Log(dbus.service.Object):
 
             if not title_changed:
                 self.title_label.setText("")
-                title_changed = True
 
             while counter < len(self.desktops):
                 self.desktops[counter].setOwnedByLayout(True)
